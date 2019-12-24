@@ -354,7 +354,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void isBatteryCharging(Promise p){
     IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
-    Intent batteryStatus = this.reactContext.getApplicationContext().registerReceiver(null, ifilter);
+    Intent batteryStatus = this.reactContext.getApplicationContext().registerReceiver(null, ifilter, null, null);
     int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
     boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING;
     p.resolve(isCharging);
@@ -362,7 +362,7 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void getBatteryLevel(Promise p) {
-    Intent batteryIntent = this.reactContext.getApplicationContext().registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+    Intent batteryIntent = this.reactContext.getApplicationContext().registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED), null, null );
     int level = batteryIntent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
     int scale = batteryIntent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
     float batteryLevel = level / (float) scale;
